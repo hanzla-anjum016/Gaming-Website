@@ -1,0 +1,111 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title %}{{video.Title}}{% endblock title %}
+{% block playlistactive %}active{% endblock playlistactive %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/video.css' %}">
+{% endblock css %}
+{% block body %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-9 col-sm-8 col-md-8 bg-dark p-4 text-warning">
+            <iframe id="player" width="100%" height="315" src="https://www.youtube.com/embed/{{video.video_id}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+        <div class="col-3 col-sm-4 col-md-4">
+            <ul class="list-group" id="video_list">
+                {% for i in videos %}
+                <a style="text-decoration: none; color:black;" href="?video={{i.serial_no}}"><small><li class="list-group-item item {% if i == video %}active{% endif %} fs-5">{{i|truncatewords:3}}</li></a></small>
+                {% endfor %}
+            </ul>
+        </div>    
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-4 col-sm-4 col-md-4 mt-1">
+                    {% if prev_vid %}
+                    <a href="?video={{prev_vid}}" role="button" class="btn btn-secondary text-uppercase fw-bold">&laquo previous</a>
+                    {% else %}
+                    <a href="javascript:void(0);" role="button" class="disabled btn btn-secondary text-uppercase fw-bold">&laquo previous</a>
+                    {% endif %}
+                </div>
+                <div class="col-1 col-sm-1 col-md-4 col-lg-5"></div>
+                <div class="col-4 col-sm-4 col-md-4 col-lg-3 mt-1">
+                    {% if next_vid %}
+                    <a href="?video={{next_vid}}" role="button" style="margin-left:3.4rem;" class="btn btn-secondary text-uppercase fw-bold">next &raquo</a>
+                    {% else %}
+                    <a href="javascript:void(0);" role="button" style="margin-left:3.4rem;" class="disabled btn btn-secondary text-uppercase fw-bold">next &raquo</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12">
+            <h1 class="mt-3 border-bottom border-2">{{video.Title}}</h1>
+            <div class="fb-share-button" data-href="https://drhanzlaff.herokuapp.com/playlist/{{video.playlist.slug}}/?video={{video.serial_no}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdrhanzlaff.herokuapp.com%2Fplaylist%257B%257Bvideo.playlist.slug%257D%257D%2F%3Fvideo%3D%257B%257Bvideo.serial_no%257D%257D&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+        </div>
+    </div>
+    <div class="row mt-1">
+        <div class="col-12 col-md-9 border bg-light mb-4 p-2">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">OverView</button>
+                  <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Q&A</button>
+                </div>
+              </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="preview mt-4 ps-3 ms-2 mb-2 tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    {{video.content}}
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="commentSection">
+                        {% include 'home/comment.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+{% endblock body %}
+{% block js %}
+<script src="{% static 'js/playerRatio.js' %}"></script>
+<script src="{% static 'js/typed/comment.js' %}"></script>
+<script src="{% static 'js/typed/reply.js' %}"></script>
+<script>
+    $(document).on('submit', '.commentForm', function(event){
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response){
+            $('.commentSection').html(response.form);
+            $('.comment').val('');
+        },
+        error: function(rs, e){
+        console.log("failed");
+        },
+     });
+    });
+    $(document).on('submit', '.replyForm', function(event){
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function(response){
+            $('.commentSection').html(response.form);
+            $('.comment').val('');
+        },
+        error: function(rs, e){
+        console.log("failed");
+        },
+     });
+    });
+  </script>
+{% endblock js %}

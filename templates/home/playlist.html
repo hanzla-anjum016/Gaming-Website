@@ -1,0 +1,24 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title %}Videos{% endblock title %}
+{% block playlistactive %}active{% endblock playlistactive %}
+{% block body %}
+<div class="container mt-4">
+    <h3>DR HANZLA FF PLAYLISTS</h3>
+    <div class="row mt-2">
+        {% for i in all_vid %}
+        <div class="col col-sm-6 col-md-6 col-lg-4 mx-auto">
+            <div class="m-4 card p-0 mx-auto" style="width: 17rem;">
+                <img src="{{i.thumbnail_link}}" style="width:270px; height:200px;" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{i.name}}</h5>
+                    <p class="card-text">{{i.description|truncatewords:15}}</p>
+                    <a href="/playlist/{{i.slug}}/?video=1" class="btn btn-outline-dark" style="padding-right: 60px; padding-left: 59px;">Start Watching &raquo</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}

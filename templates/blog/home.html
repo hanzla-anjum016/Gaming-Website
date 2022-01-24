@@ -1,0 +1,90 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load humanize %}
+{% block blogactive %}active{% endblock blogactive %}
+{% block title %}Blog{% endblock title %} 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/style.default.css' %}" />
+{% endblock css %} 
+{% block body %}
+<div class="container">
+  <div class="row row-col-sm-1 mt-4">
+    <h2>DR HANZLA FF BLOGS</h2>
+    <div class="col mt-2 p-4">
+      {% for i in posts %}
+      <a href="/blog/{{i.slug}}" style="text-decoration: none; color: initial">
+        <div class="row g-0 pe-3 mb-4 shadow-lg bg-light bg-body-rounded rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative">
+          <div class="col border-bottom border-3 ps-4 d-flex flex-column position-static bg-light">
+            <h3 class="my-3 me-4 text-uppercase fw-bold fs-1">
+              {{i.title|truncatewords:8}}
+            </h3>
+            <p class="preview">{{i.content|truncatewords:15}}</p>
+            <div class="row row-col-sm-1 mb-2">
+              <div class="col">
+                <small class="text-muted fw-bold text-uppercase">{{i.time_stamp|naturaltime}}</small>
+              </div>
+              <div class="col"></div>
+              <div class="col">
+                <small class="text-muted fw-bold text-uppercase">{{i.author}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+      <!-- Pagination -->
+      <nav aria-label="Page navigation example" class="mt-4">
+        <ul class="pagination justify-content-center">
+          {% comment %} for previous page {% endcomment %} 
+          {% if posts.has_previous %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page={{posts.previous_page_number}}">&laquo</a>
+          </li>
+          {% else %}
+          <li class="disabled page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle">&laquo</a>
+          </li>
+          {% endif %} {% comment %} for first page {% endcomment %} 
+          {% if posts.number == 1 %}
+          <li class="page-item" style="margin-left: 3px">
+            <a style="background-color: blueviolet; border-color: blueviolet; color: white;" class="page-link rounded-circle" href="?page=1">1</a>
+          </li>
+          {% else %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page=1">1</a>
+          </li>
+          {% endif %}
+          {% if posts.has_next %}
+          <li class="page-item disabled" style="margin-left: 3px">
+            <a class="page-link rounded-circle">...</a>
+          </li>
+          {% elif posts.has_previous %}
+          <li class="page-item disabled" style="margin-left: 3px">
+            <a class="page-link rounded-circle">...</a>
+          </li>
+          {% endif %} 
+          {% comment %} for active page if page is greater than 1 {% endcomment %} {% if posts.number > 1 %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" style="background-color: blueviolet; border-color: blueviolet; color: white;" href="?page={{posts.number}}">{{posts.number}}</a>
+          </li>
+          {% endif %} {% comment %} Last page {% endcomment %}
+          {% if last > posts.number %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page={{last}}">{{last}}</a>
+          </li>
+          {% endif %} {% comment %} for nex page {% endcomment %} 
+          {% if posts.has_next %}
+          <li class="page-item" style="margin-left: 3px">
+            <a class="page-link rounded-circle" href="?page={{posts.next_page_number}}">&raquo</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled" style="margin-left: 3px">
+            <a class="page-link rounded-circle">&raquo</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+{% endblock body %}

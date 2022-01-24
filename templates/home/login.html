@@ -1,0 +1,140 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<style>
+    .sidehero{
+        background-image: url({% static 'images/login1.png' %})
+    }
+</style>
+{% endblock css %}
+{% block title %}Login{% endblock title %}
+{% block body %}
+<div class="container bg-dark mt-3 mb-3">
+    <div class="row">
+        <div class="col-6 p-4 sidehero"></div>
+        <div class="col-6 p-4" id="form_side">
+            {% if otp %}
+            <script>
+                document.getElementById('form_side').innerHTML = `<h2 class="text-white text-center">Verify account on</h2>
+                <h2 class="text-primary text-center">DR HANZLA FF</h2>
+                <div class="text-center">
+                    <img src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
+                </div>
+                <form action="/account-activation" method="post" name="otpForm" onsubmit="return validateotp()">{% csrf_token %}
+                    <div class="mb-4 mt-2 me-4" id="otp">
+                        <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">OTP</label>
+                        <input type="number" class="form-control field" id="otp_typed" id="otp" name="otp">
+                        <div class="error" style="color: red; font-weight: bold;"></div>
+                        <input type="hidden" name="user" value="{{user}}">
+                    </div>
+                    <small><a class="resend-otp" style="text-decoration: none; color:white;" href="#" onclick="ReSendOTP('{{user.username}}', 'resendOTPmess')" ><i id="resendOTPmess">Resend</i><i> OTP?</i></a></small>
+                    <button class="button btn text-uppercase fw-bold fs-6" type="submit">Verify OTP</button>
+                </form>`
+            </script>
+            {% else %}
+            <h2 class="text-white text-center">Login to</h2>
+            <h2 class="text-primary text-center">DR HANZLA FF</h2>
+            <div class="col-12">
+                <img class="mx-auto d-block" src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
+            </div>
+            <form action="/login" method="post" name="loginForm" onsubmit="return validateForm()">{% csrf_token %}
+                <div class="col-12 mb-4 mt-2 me-4" id="uname">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">username or email</label>
+                    <input type="text" class="form-control field" id="login" id="loginUsername" name="loginUsername" required>
+                    <div class="error" style="font-weight: bold; color: red;"></div>
+                </div>
+                <div class="col-12 mb-4 me-4" id="pwd">
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">password</label>
+                    <input type="password" autocomplete='current-password' class="form-control field" id="password" id="loginPassword" name="login-Password" required>
+                    <div class="error" style="font-weight: bold; color: red;"></div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" onclick="showPass();" class="form-check-input field" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1" style="color: white;">Show Password</label>
+                </div>
+                <small class="text-white">Not a member yet? <a style="text-decoration: none; color:white;" class="small" href="/signup">Sign Up</a> </small><br>
+                {% comment %} <small><a class="small" style="text-decoration: none; color:white;" href="/password-reset">Forgot Password?</a></small> {% endcomment %}
+                <button class="button btn text-uppercase fw-bold fs-6" type="submit">Login</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %}
+{% block js %}
+<script src="{% static 'js/typed/logintyped.js' %}"></script>
+<script src="{% static 'js/typed/password.js' %}"></script>
+<script src="{% static 'js/typed/otp.js' %}"></script>
+<script>
+    function clearErrors(){
+
+        errors = document.getElementsByClassName("error");
+        for(let item of errors)
+        {
+            item.innerHTML = "";
+        } 
+    }
+    
+    // set errors inside tags of id
+    
+    function setError(div_id, error){
+        // id = div id
+        element = document.getElementById(div_id)
+        element.getElementsByClassName("error")[0].innerHTML = error;
+    }
+    
+    function validateForm(){
+        var returnVal = true;
+        clearErrors();
+    
+        // Username Validation
+        var Uname = document.forms['loginForm']['loginUsername'].value;
+        if (Uname.length<6){
+            setError("uname", "*Username cannot be less than 6 chracters!");
+            returnVal = false;
+        }
+        if (Uname.length>30){
+            setError("uname", "*Username cannot be greater than 30 chracters!");
+            returnVal = false;
+        }
+    
+        // matching password and confirm password
+        var password1 = document.forms['loginForm']["login-Password"].value;
+        if (password1.length<8){
+            setError("pwd", "*Password can not be less than 8 digits!");
+            console.log(password1);
+            returnVal = false;
+        }
+        return returnVal;
+    }
+    
+    function validateotp(){
+        var returnVal = true;
+        clearErrors();
+        // Validating Otp 
+        var otp = document.forms['otpForm']["otp"].value;
+        if (otp.length<6){
+            setError("otp", "OTP cannot be less than 6 digits!");
+            returnVal = false;
+        }
+        if (otp.length>6){
+            setError("otp", "OTP cannot be greater than 6 digits!");
+            returnVal = false;
+        }
+    
+        return returnVal;
+    }
+    
+    function showPass(){
+        var x = document.getElementById('password');
+
+        if(x.type === 'password'){
+            x.type = "text";
+        }
+        else{
+            x.type = "password";
+        }
+    }
+</script>
+{% endblock js %}
