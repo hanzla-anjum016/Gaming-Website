@@ -162,7 +162,7 @@ def register(request):
             return redirect('/signup')
 
         elif User.objects.filter(email = email).first():
-            messages.error(request, "An account with this email is already created.")
+            messages.error(request, "An account with this email already exists please try another.")
             return redirect('/signup')
 
         # Create the user

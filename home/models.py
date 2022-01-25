@@ -31,7 +31,6 @@ class Userdetail(models.Model):
     first_name = models.CharField(max_length=60, default="")
     last_name = models.CharField(max_length=60, default="")
     phone = models.CharField(max_length=40, null=True)
-    profile_pic = models.ImageField(upload_to='users/img/', null=True, blank=True, default='users/img/user.jpg')
 
     def __str__(self):
         return self.username+"'s "+" detail"

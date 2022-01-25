@@ -9,7 +9,7 @@
     }
     .typed-cursor{
         color: blueviolet;
-        background: linear-gradient(45deg, black, #b59c9c);
+        {% comment %} background: linear-gradient(45deg, black, #b59c9c); {% endcomment %}
     }
     .display-4 {
         font-size: calc(1.475rem + 2.7vw);
@@ -26,8 +26,8 @@
 {% block body %}
 <div class="container-fluid hero mt-4" id="hero">
     <div class="row">
-        <div class="col-4 col-sm-5 col-md-5 col-lg-5"></div>
-        <div class="col-6">
+        <div class="col-4 col-sm-5 me-xl-4 col-md-5 col-lg-5"></div>
+        <div class="col-6 ms-xl-2">
             <img class="rounded-circle" style="width: 150px; height: 150px; margin-top:2rem; background: radial-gradient(black, transparent);" src="{% static 'images/logo.png' %}" alt="">
         </div>
         <div class="col"></div>
@@ -49,18 +49,18 @@
         <div class="col-sm-1 col-xs-1"></div>
     </div>
     <div class="row">
-        <div class="col-2 col-sm-3 col-md-4 col-lg-4"></div>
-        <div class="col-9 col-sm-7 col-md-6 col-lg-5">
-            <a class="btn btn-outline-warning btn-lg mb-3 me-1" href="/playlist" role="button">View Playlists &raquo</a>
-            <a class="btn btn-warning btn-lg mb-3" href="/blog" role="button">Read Blogs &raquo</a>
+        <div class="col-2 col-sm-3 col-md-4 col-lg-4 col-xl-5"></div>
+        <div class="col-9 col-sm-7 col-md-6 col-lg-5 col-xl-7">
+            <a class="btn btn-warning btn-lg mb-3 me-1" href="/playlist" role="button">Playlists &raquo</a>
+            <a class="btn btn-warning btn-lg mb-3" href="/blog/?page=1" role="button">Blogs &raquo</a>
         </div>
         <div class=""></div>
     </div>
 </div>
 {% comment %} Card starts here {% endcomment %}
 <div class="row no-gutter">
-    <div class="col-2 col-sm-3 col-md-2 col-lg-2"></div>
-    <div class="col-10 col-sm-6 col-md-10 col-lg-10">
+    <div class="col-2 col-sm-3 col-md-2 col-lg-2 col-xl-4"></div>
+    <div class="col-10 col-sm-6 col-md-10 col-lg-10 col-xl-4">
         <div class="row">
             <div class="m-2 card bg-warning text-white  p-0" style="width: 18rem;">
                 <img src="{% static 'images/hero4.jpg' %}" style="height:165px;" class="card-img-top" alt="...">
@@ -75,8 +75,8 @@
                 <img src="{% static 'images/card blog.jpg' %}" style="height:165px;" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">Gaming Articles</h5>
-                    <p class="card-text">Read my blog to improve your vision and gaming experience. I am sure i will help you on any topic in my blogs.</p>
-                    <a href="/blog" class="btn btn-outline-warning">Read Blogs &raquo</a>
+                    <p class="card-text">Read my blog to improve your vision and gaming experience. I am sure it will help you a lot for any information <a href="/contact" style="text-decoration: none;">Contact Me.</a></p>
+                    <a href="/blog/?page=1" class="btn btn-outline-warning">Read Blogs &raquo</a>
                 </div>
             </div>
         </div>
