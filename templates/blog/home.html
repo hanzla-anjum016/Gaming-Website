@@ -9,7 +9,7 @@
 {% block body %}
 <div class="container">
   <div class="row row-col-sm-1 mt-4">
-    <h2>DR HANZLA FF BLOGS</h2>
+    <h2>DR HANZLA FF <strong> BLOGS</strong></h2>
     <div class="col mt-2 p-4">
       {% for i in posts %}
       <a href="/blog/{{i.slug}}" style="text-decoration: none; color: initial">
@@ -20,11 +20,11 @@
             </h3>
             <p class="preview">{{i.content|truncatewords:15}}</p>
             <div class="row row-col-sm-1 mb-2">
-              <div class="col">
+              <div class="col-12 col-sm">
                 <small class="text-muted fw-bold text-uppercase">{{i.time_stamp|naturaltime}}</small>
               </div>
               <div class="col"></div>
-              <div class="col">
+              <div class="col-12 col-sm text-end">
                 <small class="text-muted fw-bold text-uppercase">{{i.author}}</small>
               </div>
             </div>

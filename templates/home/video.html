@@ -20,8 +20,8 @@
                             <a href="javascript:void(0);" role="button" class="disabled btn btn-secondary text-uppercase fw-bold">previous</a>
                             {% endif %}
                         </div>
-                        <div class="col-4 col-sm-4 col-md-4 col-lg-5"></div>
-                        <div class="col-4 col-sm-4 col-md-4 col-lg-3 mt-1">
+                        <div class="col-3 col-sm-4 col-md-4 col-lg-5"></div>
+                        <div class="col-4 col-sm-4 text-end col-md-4 col-lg-3 mt-1">
                             {% if next_vid %}
                             <a href="?video={{next_vid}}" role="button" style="margin-left:3.4rem;" class="btn btn-secondary text-uppercase fw-bold">next</a>
                             {% else %}
@@ -35,7 +35,7 @@
         <div class="col-12 col-sm-12 col-md-4">
             <ul class="list-group" id="video_list">
                 {% for i in videos %}
-                <a style="text-decoration: none; color:black;" href="?video={{i.serial_no}}"><small><li class="list-group-item item {% if i == video %}active{% endif %} fs-5">{{i|truncatewords:5}}</li></a></small>
+                <a style="text-decoration: none; color:black;" href="?video={{i.serial_no}}"><small><li class="list-group-item item {% if i == video %}active{% endif %} fs-5">{{i|truncatechars:25}}</li></a></small>
                 {% endfor %}
             </ul>
         </div>    
@@ -71,6 +71,8 @@
 </div>
 {% endblock body %}
 {% block js %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v12.0&appId=976590069731068&autoLogAppEvents=1" nonce="zx7cTzyH"></script>
 <script src="{% static 'js/playerRatio.js' %}"></script>
 <script src="{% static 'js/typed/comment.js' %}"></script>
 <script src="{% static 'js/typed/reply.js' %}"></script>

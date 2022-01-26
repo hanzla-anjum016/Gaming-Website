@@ -15,7 +15,7 @@ class Post(models.Model):
     views = models.IntegerField(default=0)
     thumbnail_link = models.CharField(null=True, max_length=500, default="")
     def __str__(self):
-        return self.title
+        return self.title[0:50]+"......."
 
 class Postcomment(models.Model):
     serial_no = models.AutoField(primary_key=True)

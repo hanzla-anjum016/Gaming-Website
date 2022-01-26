@@ -39,6 +39,8 @@ class OTP(models.Model):
     username = models.ForeignKey(User, on_delete=models.CASCADE)
     otp = models.IntegerField(blank=True)
     time_stamp = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.username+"'s otp"
 
 class Video(models.Model):
     serial_no = models.IntegerField(null=False)
@@ -50,7 +52,7 @@ class Video(models.Model):
     time_stamp = models.DateTimeField(default=now)
 
     def __str__(self):
-        return self.Title
+        return self.Title[0:50]+"......"
 
 class Videocomment(models.Model):
     serial_no = models.AutoField(primary_key=True)

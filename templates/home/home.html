@@ -25,14 +25,14 @@
 {% endblock css %}
 {% block body %}
 <div class="container-fluid hero mt-4" id="hero">
-    <div class="row">
-        <div class="col-4 col-sm-5 me-xl-4 col-md-5 col-lg-5"></div>
-        <div class="col-6 ms-xl-2">
+    <div class="row g-0">
+        <div class="col me-xl-4 col-md-4 col-lg-4"></div>
+        <div class="col ms-xl-2 text-center">
             <img class="rounded-circle" style="width: 150px; height: 150px; margin-top:2rem; background: radial-gradient(black, transparent);" src="{% static 'images/logo.png' %}" alt="">
         </div>
         <div class="col"></div>
     </div> 
-    <div class="row mt-3">
+    <div class="row mt-3 g-0">
         <div class="col-md-2 col-sm-1 col-xs-2"></div>
         <div class="col-12 col-md-8 col-sm-12 col-xs-8">
             <h1 class="display-4 fw-bold text-white text-center">
@@ -41,27 +41,25 @@
         </div>
         <div class="col-sm-2 col-xs-2"></div>
     </div>
-    <div class="row">
+    <div class="row g-0">
         <div class="col-sm-1 col-xs-1"></div>
         <div class="col-12 col-sm-12 col-md-10 col-xs-2 text-center">
             <p class="lead text-white" style="background: linear-gradient(45deg, black, #b59c9c);">Hi, This is Hanzla Anjum. I am a professional player of freefire. This is the official website of DR HANZLA FF. Here I will share the best gaming videos with you to help you in making your gaming better. You will also get tips and trick or information on any topic in freefire. Read My blogs to know about any topic on freefire. </p>
         </div>
         <div class="col-sm-1 col-xs-1"></div>
     </div>
-    <div class="row">
-        <div class="col-2 col-sm-3 col-md-4 col-lg-4 col-xl-5"></div>
-        <div class="col-9 col-sm-7 col-md-6 col-lg-5 col-xl-7">
+    <div class="row g-0">
+        <div class="row-col text-center">
             <a class="btn btn-warning btn-lg mb-3 me-1" href="/playlist" role="button">Playlists &raquo</a>
             <a class="btn btn-warning btn-lg mb-3" href="/blog/?page=1" role="button">Blogs &raquo</a>
         </div>
-        <div class=""></div>
     </div>
 </div>
 {% comment %} Card starts here {% endcomment %}
-<div class="row no-gutter">
-    <div class="col-2 col-sm-3 col-md-2 col-lg-2 col-xl-4"></div>
-    <div class="col-10 col-sm-6 col-md-10 col-lg-10 col-xl-4">
-        <div class="row">
+<div class="row g-0">
+    <div class="col col-md-1 col-lg-2 col-xl-2"></div>
+    <div class="col justify-content-center d-flex">
+        <div class="row g-0">
             <div class="m-2 card bg-warning text-white  p-0" style="width: 18rem;">
                 <img src="{% static 'images/hero4.jpg' %}" style="height:165px;" class="card-img-top" alt="...">
                 <div class="card-body">
@@ -81,7 +79,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-2 col-md-1 col-xs-1"></div>
+    <div class="col col-md-1 col-xl-2"></div>
 </div>
 {% endblock body %}
 {% block js %}
