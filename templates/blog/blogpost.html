@@ -5,6 +5,7 @@
 {% block head %}
 <meta name="description" content="{{post.content|truncatewords:30}}">
 <meta property="og:title"         content="{{post.title}}" />
+<meta property="og:image"         content="{{post.thumbnail_link}}" />
 <meta property="og:description"   content="{{post.content}}" />
 {% endblock head %}
 {% block blogactive %}active{% endblock blogactive %}
