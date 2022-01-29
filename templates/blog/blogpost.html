@@ -4,6 +4,8 @@
 {% load extras %}
 {% block head %}
 <meta name="description" content="{{post.content|truncatewords:30}}">
+<meta property="og:title"         content="{{post.title}}" />
+<meta property="og:description"   content="{{post.content}}" />
 {% endblock head %}
 {% block blogactive %}active{% endblock blogactive %}
 {% block title %}{{post.title}}{% endblock title %}
