@@ -1,6 +1,9 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% load humanize %}
+{% block head %}
+<meta name="description" content="Search about for what you are looking.I am sure you can find it here easily.">
+{% endblock head %}
 {% block title %}{{query}} | Search{% endblock title %}
 {% block body %}
 <div class="container mt-3">

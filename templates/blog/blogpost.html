@@ -2,6 +2,9 @@
 {% load static %}
 {% load humanize %}
 {% load extras %}
+{% block head %}
+<meta name="description" content="{{post.content|truncatewords:30}}">
+{% endblock head %}
 {% block blogactive %}active{% endblock blogactive %}
 {% block title %}{{post.title}}{% endblock title %}
 {% block css %}
