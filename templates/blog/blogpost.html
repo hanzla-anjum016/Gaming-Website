@@ -4,9 +4,9 @@
 {% load extras %}
 {% block head %}
 <meta name="description" content="{{post.content|truncatewords:30}}">
+<meta name="keywords" content="{% for i in tags %}{{i.tag}},{% endfor %}">
 <meta property="og:title"         content="{{post.title}}" />
 <meta property="og:image"         content="{{post.thumbnail_link}}" />
-<meta property="og:description"   content="{{post.content}}" />
 {% endblock head %}
 {% block blogactive %}active{% endblock blogactive %}
 {% block title %}{{post.title}}{% endblock title %}
@@ -21,125 +21,238 @@
 {% block body %}
 <div class="container mt-4">
     <div class="row row-col-sm-1">
-        <div class="col">
+        <div class="col-12 col-md-8 border-2 border-end">
             <img src="{{post.thumbnail_link}}" alt="Image" style="width: 100%; height: 385px">
                 <h3 class="pb-2 mt-3 border-bottom">{{post.title}}</h3>
-                <div class="fb-share-button" data-href="https://drhanzlaff.herokuapp.com/blog/{{post.slug}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdrhanzlaff.herokuapp.com%2Fblog%2F%257B%257Bpost.slug%257D%257D&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>                <span class="text-muted" style="font-weight: bold;">{{post.author}} | </span><span class="ms-3 text-muted" style="font-weight: bold;"> {{post.time_stamp|naturaltime}}</span>
+                <div class="fb-share-button" data-href="https://drhanzlaff.herokuapp.com/blog/{{post.slug}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdrhanzlaff.herokuapp.com%2Fblog%2F%257B%257Bpost.slug%257D%257D&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+                <div><span class="text-muted" style="font-weight: bold;">{{post.author}} | </span><span class="ms-3 text-muted" style="font-weight: bold;"> {{post.time_stamp|naturaltime}}</span></div>
                 <p class="preview mt-4 px-4">{{post.content}}</p>
         </div>
-                <div class="container">
-            <div class="col comment-section bg-light">
-                <div style="margin-top: .5rem; border-bottom: 2px solid grey; margin-bottom: .5rem;"></div>
-                <h5>Comments<span>({{comments.count}})</span></h5>
-                <div class="row row-cols-auto">
-                    <div class="col-md-2 col-sm-2"></div>
-                    <div class="col-12 col-md-8 mt-3">
-                        {% for c in comments %}
-                        <div class="row g-0 pe-3 border-3 mb-2 shadow-lg bg-dark bg-body-rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative" style="border-bottom: 1px solid #a93ca0; border-radius: .5rem; ">
-                            <div class="row row-cols-auto row-col-sm-2 border-bottom mt-1 ms-1">
-                                <div class="col-sm-2 col-md-1">
-                                    <img style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-top: 5px; padding: 0px" src="{% static 'images/user1.jpg' %}" alt="">
-                                </div>
-                                <div class="col-8 mt-2 text-white">
-                                    <h5>{{c.user.first_name}} {{c.user.last_name}}<span class="text-muted"> says</span></h5>
-                                </div>
-                            </div>
-                            <p style="padding: 0px; margin-top: 1.5rem; margin-left: 1.5rem; margin-bottom: .40rem; color: white;">{{c.comment}}</p>
-                            <div class="row row-cols-auto">
-                                <div class="col-6">
-                                    <small class="text-white fw-bold">{{c.time_stamp|naturaltime}}</small>
-                                </div>
-                                <div class="col-6 text-white text-end mb-1">
-                                    <small class="text-white fw-bold"><a class="text-white" style="text-decoration: none; color: white;" data-bs-toggle="collapse" href="#replybox{{c.serial_no}}" role="button" aria-expanded="false" aria-controls="collapseExample">View Replies</a></small>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <div class="collapse ms-1" id="replybox{{c.serial_no}}">
-                                        {% for i in replies|get_val:c.serial_no %}
-                                        <div class="row g-0 pe-3 border-3 mb-2 bg-white bg-body-rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative" style="border-bottom: 1px solid #a93ca0; border-radius: .5rem; ">
-                                            <div class="row border-bottom mt-1 ms-1">
-                                                <div class="col-2 col-md-1">
-                                                    <img style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-top: 5px; padding: 0px" src="{% static 'images/user1.jpg' %}" alt="">
-                                                </div>
-                                                <div class="col-10 col-md-11 mt-2 text-dark">
-                                                    <h5>{{i.user.first_name}} {{i.user.last_name}}<span class="text-muted"> replies</span></h5>
-                                                </div>
-                                            </div>
-                                            <p class="text-dark fw-bold" style="padding: 0px; margin-top: 1rem; margin-left: 1.5rem; margin-bottom: .75rem; color: white;">{{i.comment}}</p>
-                                        </div>
-                                        {% endfor %}
-                                        <div style="border-bottom: 1px solid grey; margin-bottom: .25rem;"></div>
-                                        <form action="/blog/postcomment" method="post" class="replyForm">{% csrf_token %}
-                                            <div class="row">
-                                                <div class="col-sm-2"></div>
-                                                <div class="col-12 col-sm-10 mt-3">
-                                                <div class="input-box">
-                                                    <textarea type="text" name="comment" id="reply"
-                                                            style="width: 100%; color:black; border: none; outline: none; background: white;"
-                                                            placeholder="Type Your Reply here." rows="5"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-        
-                                                <div class="col-5 col-sm-7 col-lg-8 col-md-6"></div>
-                                                <div class="col-7 col-sm-4 col-lg-4 col-md-6 mb-1">
-                                                    <input type="hidden" name="postSno" value="{{post.serial_no}}">
-                                                    <input type="hidden" name="parent_Sno" value="{{c.serial_no}}">
-                                                    {% if user.is_authenticated %}
-                                                    <button class="btn button" style="margin-left: 45px; margin-top: 0px;">Reply</button>
-                                                    {% else %}
-                                                    <a href="/login" class="btn button" style="margin-left: 45px; margin-top: 0px;">Reply</a>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-6"></div>
-                                                <div class="col-6 text-white text-end mb-1">
-                                                    <small class="text-white fw-bold"><a class="text-white" style="text-decoration: none; color: white;" data-bs-toggle="collapse" href="#replybox{{c.serial_no}}" role="button" aria-expanded="false" aria-controls="collapseExample">Hide Replies</a></small>
-                                                </div>
-                                            </div>
-                                        </form>
+        <div class="col-0 d-none d-md-block col-md-4">
+            <div class="fb-page" data-href="https://www.facebook.com/drhanzlaff_01/" data-tabs="messages" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/drhanzlaff_01/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/drhanzlaff_01/">DR Hanzla FF</a></blockquote></div>
+            <div class="mobileHide">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 border-2 border-end col-md-8 comment-section bg-light">
+                    <div style="margin-top: .5rem; border-bottom: 2px solid grey; margin-bottom: .5rem;"></div>
+                    <h5>Comments<span>({{comments.count}})</span></h5>
+                    <div class="row g-0 row-cols-auto">
+                        <div class="col-md-2 col-sm-2"></div>
+                        <div class="col-12 col-md-8 mt-3">
+                            {% for c in comments %}
+                            <div class="row g-0 pe-3 border-3 mb-2 shadow-lg bg-dark bg-body-rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative" style="border-bottom: 1px solid #a93ca0; border-radius: .5rem; ">
+                                <div class="row g-0 row-cols-auto row-col-sm-2 border-bottom mt-1 ms-1">
+                                    <div class="col-sm-2 col-md-1">
+                                        <img style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-top: 5px; padding: 0px" src="{% static 'images/user1.jpg' %}" alt="">
+                                    </div>
+                                    <div class="col-8 mt-2 text-white">
+                                        <h5>{{c.user.first_name}} {{c.user.last_name}}<span class="text-muted"> says</span></h5>
                                     </div>
                                 </div>
-                            </div> 
+                                <p style="padding: 0px; margin-top: 1.5rem; margin-left: 1.5rem; margin-bottom: .40rem; color: white;">{{c.comment}}</p>
+                                <div class="row row-cols-auto">
+                                    <div class="col-6">
+                                        <small class="text-white fw-bold">{{c.time_stamp|naturaltime}}</small>
+                                    </div>
+                                    <div class="col-6 text-white text-end mb-1">
+                                        <small class="text-white fw-bold"><a class="text-white" style="text-decoration: none; color: white;" data-bs-toggle="collapse" href="#replybox{{c.serial_no}}" role="button" aria-expanded="false" aria-controls="collapseExample">View Replies</a></small>
+                                    </div>
+                                </div>
+                                <div class="row g-0">
+                                    <div class="col-1"></div>
+                                    <div class="col-11">
+                                        <div class="collapse ms-1" id="replybox{{c.serial_no}}">
+                                            {% for i in replies|get_val:c.serial_no %}
+                                            <div class="row g-0 pe-3 border-3 mb-2 bg-white bg-body-rounded overflow-hidden flex-md-row shadow-sm h-md-250 position-relative" style="border-bottom: 1px solid #a93ca0; border-radius: .5rem; ">
+                                                <div class="row border-bottom mt-1 ms-1">
+                                                    <div class="col-2 col-md-1">
+                                                        <img style="width: 35px; border: 1px solid black; border-radius: 104px; height: 35px; margin-top: 5px; padding: 0px" src="{% static 'images/user1.jpg' %}" alt="">
+                                                    </div>
+                                                    <div class="col-10 col-md-11 mt-2 text-dark">
+                                                        <h5>{{i.user.first_name}} {{i.user.last_name}}<span class="text-muted"> replies</span></h5>
+                                                    </div>
+                                                </div>
+                                                <p class="text-dark fw-bold" style="padding: 0px; margin-top: 1rem; margin-left: 1.5rem; margin-bottom: .75rem; color: white;">{{i.comment}}</p>
+                                            </div>
+                                            {% endfor %}
+                                            <div style="border-bottom: 1px solid grey; margin-bottom: .25rem;"></div>
+                                            <form action="/blog/postcomment" method="post" class="replyForm">{% csrf_token %}
+                                                <div class="row g-0">
+                                                    <div class="col-sm-2"></div>
+                                                    <div class="col-12 col-sm-10 mt-3">
+                                                    <div class="input-box">
+                                                        <textarea type="text" name="comment" id="reply"
+                                                                style="width: 100%; color:black; border: none; outline: none; background: white;"
+                                                                placeholder="Type Your Reply here." rows="5"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0">
+            
+                                                    <div class="col-5 col-sm-7 col-lg-8 col-md-6"></div>
+                                                    <div class="col-7 col-sm-4 col-lg-4 col-md-6 mb-1">
+                                                        <input type="hidden" name="postSno" value="{{post.serial_no}}">
+                                                        <input type="hidden" name="parent_Sno" value="{{c.serial_no}}">
+                                                        {% if user.is_authenticated %}
+                                                        <button class="btn button" style="margin-left: 15px; margin-top: 0px;">Reply</button>
+                                                        {% else %}
+                                                        <a href="/login" class="btn button" style="margin-left: 15px; margin-top: 0px;">Reply</a>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="row g-0">
+                                                    <div class="col-6"></div>
+                                                    <div class="col-6 text-white text-end mb-1">
+                                                        <small class="text-white fw-bold"><a class="text-white" style="text-decoration: none; color: white;" data-bs-toggle="collapse" href="#replybox{{c.serial_no}}" role="button" aria-expanded="false" aria-controls="collapseExample">Hide Replies</a></small>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
+                        <div class="col-2"></div>
                     </div>
-                    <div class="col-2"></div>
+                    <div class="row g-0">
+                        <div class="col-2"></div>
+                        <div class="col-10 col-md-9 mt-4" style="border-top: 2px solid grey;">
+                            {% comment %} comment form starts here {% endcomment %}
+                            <form class="mt-4" action="/blog/postcomment" method="post">{% csrf_token %}
+                                <div class="row g-0">
+                                    <div class="input-box">
+                                        <textarea type="text" name="comment" id="comment" style="width: 100%; color:black; border: grey; outline: grey; background: white;" rows="5"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row g-0">
+                                    <div class="col-4 col-md-8"></div>
+                                    <div class="col-5 col-md-4 mb-1">
+                                        <input type="hidden" name="postSno" value="{{post.serial_no}}">
+                                        <input type="hidden" name="parent_Sno" value="">
+                                        {% if user.is_authenticated %}
+                                        <button class="btn button fw-bold" style="margin-top: 0px;">Comment</button>
+                                        {% else %}
+                                        <a href="/login" class="fw-bold btn button" style="margin-top: 0px;">Comment</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
                 </div>
-                <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-10 col-md-9 mt-4" style="border-top: 2px solid grey;">
-                        {% comment %} comment form starts here {% endcomment %}
-                        <form class="mt-4" action="/blog/postcomment" method="post">{% csrf_token %}
-                            <div class="row">
-                                <div class="input-box">
-                                    <textarea type="text" name="comment" id="comment" style="width: 100%; color:black; border: grey; outline: grey; background: white;" rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4 col-md-8"></div>
-                                <div class="col-5 col-md-4 mb-1">
-                                    <input type="hidden" name="postSno" value="{{post.serial_no}}">
-                                    <input type="hidden" name="parent_Sno" value="">
-                                    {% if user.is_authenticated %}
-                                    <button class="btn button fw-bold" style="margin-left: 50px; margin-top: 0px;">Comment</button>
-                                    {% else %}
-                                    <a href="/login" class="fw-bold btn button" style="margin-left: 50px; margin-top: 0px;">Comment</a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-1"></div>
+                <div class=" col-md-4 mobileHide d-none d-md-block">
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '41ebd011afafd04ff3d23848ebdde795',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                        document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+                    </script>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '41ebd011afafd04ff3d23848ebdde795',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                        document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+                    </script>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '41ebd011afafd04ff3d23848ebdde795',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                        document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+                    </script>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '41ebd011afafd04ff3d23848ebdde795',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                        document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+                    </script>
+                    <script type="text/javascript">
+                        atOptions = {
+                            'key' : '41ebd011afafd04ff3d23848ebdde795',
+                            'format' : 'iframe',
+                            'height' : 250,
+                            'width' : 300,
+                            'params' : {}
+                        };
+                        document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+                    </script>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+
+    {% comment %} Ads Start here {% endcomment %}
+    <div class="row g-0 border-2 border-top border-bottom" style="margin-top: 3rem;">
         <div class="col-12">
             <div id="container-dd70266a39485976b2106e26a032bb5e"></div>
         </div>

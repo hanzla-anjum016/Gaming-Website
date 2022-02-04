@@ -1,5 +1,5 @@
 body{
-    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+    background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
 }
 .emp-profile{
     padding: 3%;
@@ -13,7 +13,7 @@ body{
 }
 .profile-edit-btn {
     border: none;
-    width: 152px;
+    width: 100px;
     height: 40px;
     margin: auto;
     margin-top: 20px;
@@ -21,7 +21,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #09ff00;
+    background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
     font-size: 13px;
     color: #fff;
     text-transform: uppercase;
@@ -44,7 +44,7 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
-    background: #33ff00;
+    background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
     -webkit-transform-origin: 0 50%;

@@ -33,6 +33,10 @@ def videos(request, slug):
     playlist = Playlist.objects.get(slug=slug)
     serial_no = request.GET.get('video')
     videos = playlist.video_set.all().order_by("serial_no")
+    # video1 = Video.objects.get(serial_no=serial_no, playlist=playlist)
+    # vid_title = (video1.Title)
+    # tags = Tag.objects.filter(video_ref=vid_title)
+    # print(tags)
     if request.method == "POST":
         comment = request.POST.get('comment')
         user = request.user
@@ -100,6 +104,15 @@ def videos(request, slug):
         return JsonResponse({'form':html})
     return render(request, 'home/video.html', params)
 
+def vid_prev(request, slug):
+    playlist = Playlist.objects.get(slug=slug)
+    videos = playlist.video_set.all().order_by("serial_no")
+    params = {
+        'playlist':playlist,
+        "videos":videos,
+        }
+    return render(request, 'home/vid_prev.html', params)
+
 def contacts(request):
     if request.method =="POST":
         first_name = request.POST.get('firstName', '')
@@ -133,9 +146,8 @@ def profile(request):
     if request.method == "POST":
         first_name = request.POST['firstName']
         last_name = request.POST['lastName']
-        email = request.POST['email']
         phone = request.POST['phone']
-        user = User.objects.filter(username=request.user).update(first_name=first_name, last_name=last_name, email=email)
+        user = User.objects.filter(username=request.user).update(first_name=first_name, last_name=last_name)
         user_info = Userdetail.objects.filter(username=request.user)
         user_info.update(first_name=first_name, last_name=last_name, phone=phone)
         messages.success(request, "Your profile has been updated successfully.")
@@ -342,57 +354,3 @@ def search(request):
         messages.warning(request, 'No search result found for your query.')
     params = {'allposts':all_posts, 'allplaylists':all_playlists, 'all_videos':all_videos, 'query':query}
     return render(request, 'home/search.html', params)
-
-# def reset_password(request):
-#     if request.method == "POST":
-#         email = request.POST.get('email')
-#         if User.objects.filter(email=email).exists():
-#             user_name = User.objects.get(email=email)
-#             otp = random.randint(100000, 999999)
-#             user_otp = OTP(username=user_name, otp=otp)
-#             user_otp.save()
-#             # Html email start here
-#             greeting = f"Hello {user_name.first_name} {user_name.last_name}!"
-#             content = f"Your request for password reset had approved.Use this Otp to verify that it was you requesting for reset. This is a secret key. Don't share this key with anyother. In case of any problem contact the DR HANZLA FF admin on our website.\nThanks!"
-#             context = {'greeting':greeting, 'content':content, 'otp':otp}
-#             html_content = render_to_string("home/email.html", context)
-#             text_content = strip_tags(html_content)
-#             email = EmailMultiAlternatives(
-#                 "Reset Your Password - DR HANZLA FF",
-#                 text_content,
-#                 settings.EMAIL_HOST_USER,
-#                 [email],
-#                 )
-#             email.attach_alternative(html_content, "text/html")
-#             email.send(fail_silently=False)
-#             return render(request, 'home/reset.html', {'otp':True, 'user':user_name})
-#         else:
-#             messages.error(request, "There's no account exists with that email.")
-#             return render(request, 'home/reset.html')
-#     return render(request, 'home/reset.html')
-
-# def reset_verify(request):
-#     if request.method == "POST":
-#         get_otp = request.POST['otp']
-#         if get_otp:
-#             username = request.POST['user']
-#             usr = User.objects.get(username=username)
-#             my_user = User.objects.get(username=username)
-#             if int(get_otp) == OTP.objects.filter(username=usr).last().otp:
-#                 form = SetPasswordForm(usr)
-#                 return render(request, 'home/pwdreset.html', {'user':usr, 'form':form})
-#             else:
-#                 messages.error(request, "The OTP you have entered is not correct.")
-#                 return render(request, 'home/reset.html', {'otp':True, 'user':usr}) 
-#     return redirect('/')
-
-# def reset(request):
-#     if request.method == "POST":
-#         user = request.POST.get('user')
-#         form = PasswordChangeForm(user, request.POST)
-#         if form.is_valid():
-#             v = form.save()
-#             update_session_auth_hash(request, v)
-#             messages.success(request, "Your Password has been reset successfully.")
-#             return redirect('/')
-#     return redirect('/')

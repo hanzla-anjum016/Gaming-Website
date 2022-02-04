@@ -47,6 +47,7 @@ class Video(models.Model):
     video_id = models.CharField(max_length=100, null=False, blank=True)
     is_preview = models.BooleanField(default=False)
     content = models.TextField(null=True)
+    thumbnail_link = models.CharField(max_length=1000, null=False, default="")
     time_stamp = models.DateTimeField(default=now)
 
     def __str__(self):
@@ -62,3 +63,7 @@ class Videocomment(models.Model):
 
     def __str__(self):
         return self.comment[0:15] +"....."+" by " + self.user.username
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=70, null=False, blank=True)
+    video_ref = models.ForeignKey(Video, null=False, on_delete=models.CASCADE)

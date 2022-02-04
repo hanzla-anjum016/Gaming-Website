@@ -27,3 +27,7 @@ class Postcomment(models.Model):
 
     def __str__(self):
         return self.comment[0:15] +"....."+" by " + self.user.username
+
+class Tag(models.Model):
+    tag = models.CharField(max_length=70, null=False, blank=True)
+    post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)

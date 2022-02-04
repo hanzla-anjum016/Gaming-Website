@@ -30,8 +30,10 @@ def blog(request):
 def blogPost(request, slug):
     recent_post = Post.objects.all().order_by("-time_stamp")
     post = Post.objects.filter(slug=slug).first()
+    print(post)
     post.views = post.views + 1
     post.save()
+    tags = Tag.objects.filter(post=post)
     comments = Postcomment.objects.filter(post=post, parent=None).order_by('-time_stamp')
     replies = Postcomment.objects.filter(post=post).exclude(parent=None).order_by('-time_stamp')
     repDict = {}
@@ -48,6 +50,7 @@ def blogPost(request, slug):
         'replies':repDict, 
         'popular':popular, 
         'latest':recent_post, 
+        'tags':tags,
         'user':request.user
         }
     return render(request, 'blog/blogpost.html', context)
@@ -59,13 +62,20 @@ def postComment(request):
         post_serial_no = request.POST.get('postSno')
         post = Post.objects.get(serial_no=post_serial_no)
         parent_serial_no = request.POST.get('parent_Sno')
+        
         if parent_serial_no == "" :
-            comment = Postcomment(comment=comment, user=user, post=post)
-            comment.save()
-            messages.success(request, "You have successfully commented on this post.")
+            if comment == "":
+                messages.error(request, "Please enter a comment.")
+            else:
+                comment = Postcomment(comment=comment, user=user, post=post)
+                comment.save()
+                messages.success(request, "You have successfully commented on this post.")
         else:
-            parent = Postcomment.objects.get(serial_no=parent_serial_no)
-            comment = Postcomment(comment=comment, user=user, post=post, parent=parent)
-            comment.save()
-            messages.success(request, "You have successfully replied to this comment.")
+            if comment == "":
+                messages.error(request, "Please enter a reply.")
+            else:
+                parent = Postcomment.objects.get(serial_no=parent_serial_no)
+                comment = Postcomment(comment=comment, user=user, post=post, parent=parent)
+                comment.save()
+                messages.success(request, "You have successfully replied to this comment.")
     return redirect(f"/blog/{post.slug}") 

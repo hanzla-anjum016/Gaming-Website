@@ -3,9 +3,17 @@
 {% block head %}
 <meta name="description" content="Contact DR HANZLA FF for any specific information about freefire or share your personal experience.">
 {% endblock head %}
-{% block contactactive %}active{% endblock contactactive %}
+{% block contactactive %}active1{% endblock contactactive %}
 {% block title %}Contact{% endblock title %}
 {% block css %}
+<style>
+    @media only screen and (max-width: 350px) {
+    .g-recaptcha {
+    transform:scale(0.50);
+    transform-origin:0 0;
+    }
+    }
+    </style>
 <link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock css %}
 {% block body %}
@@ -64,11 +72,12 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div id="container-dd70266a39485976b2106e26a032bb5e"></div>
-        </div>
+    {% comment %} Ads Start here {% endcomment %}
+  <div class="row g-0 border-2 border-top border-bottom" style="margin-top: 3rem;">
+    <div class="col-12">
+        <div id="container-dd70266a39485976b2106e26a032bb5e"></div>
     </div>
+  </div>
 </div>
 {% endblock body %}
 {% block js %}
