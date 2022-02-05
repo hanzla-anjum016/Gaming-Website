@@ -30,7 +30,6 @@ def blog(request):
 def blogPost(request, slug):
     recent_post = Post.objects.all().order_by("-time_stamp")
     post = Post.objects.filter(slug=slug).first()
-    print(post)
     post.views = post.views + 1
     post.save()
     tags = Tag.objects.filter(post=post)

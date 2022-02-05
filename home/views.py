@@ -36,7 +36,6 @@ def videos(request, slug):
     # video1 = Video.objects.get(serial_no=serial_no, playlist=playlist)
     # vid_title = (video1.Title)
     # tags = Tag.objects.filter(video_ref=vid_title)
-    # print(tags)
     if request.method == "POST":
         comment = request.POST.get('comment')
         user = request.user
@@ -44,12 +43,18 @@ def videos(request, slug):
         video = Video.objects.get(serial_no=video_serial_no, playlist=playlist)
         parent_serial_no = request.POST.get('parent_Sno')
         if parent_serial_no == "" :
-            comment = Videocomment(comment=comment, user=user, video=video)
-            comment.save()
+            if comment == "":
+                pass
+            else:
+                comment = Videocomment(comment=comment, user=user, video=video)
+                comment.save()
         else:
-            parent = Videocomment.objects.get(serial_no=parent_serial_no)
-            comment = Videocomment(comment=comment, user=user, video=video, parent=parent)
-            comment.save()
+            if comment=="":
+                pass
+            else:
+                parent = Videocomment.objects.get(serial_no=parent_serial_no)
+                comment = Videocomment(comment=comment, user=user, video=video, parent=parent)
+                comment.save()
     next_vid = 2
     prev_vid = None
     if serial_no is None:

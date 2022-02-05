@@ -5,18 +5,91 @@
 {% endblock head %}
 {% block title %}Signup{% endblock title %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/signup.css' %}">
 <style>
     .hero{
         background-image: url({% static 'images/signup.png' %});
     }
+    body{
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+    }
+    
+    .signup{
+        color: rgb(255, 255, 255);
+    }
+    .field{
+        background-color:rgb(209, 213, 219);
+        border-radius:10px;
+    }
+    .error{
+        color: red;
+        font-weight: bold;
+    }
+    .form-check-input:checked{
+        background-color: blueviolet;
+        border-color: blueviolet;
+    }
+    .form-check-input:focus {
+        border-color: blueviolet;
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(137 43 226 / 50%);
+    }
+    .button {
+        border: none;
+        width: 100px;
+        height: 40px;
+        margin: auto;
+        margin-top: 29px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(273.02deg,#450fc7 -37.82%,#f114ff 127.05%),#e345a4;
+        font-size: 13px;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "Muli-SemiBold";
+        border-radius: 20px;
+        overflow: hidden;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+        position: relative;
+        -webkit-transition-property: color;
+        transition-property: color;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s; }
+    .button:before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(270deg,#f114ff -40%,#450fc7 127.05%),#ffffff;
+          -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+          -webkit-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+          -webkit-transition-property: transform;
+          transition-property: transform;
+          -webkit-transition-duration: 0.5s;
+          transition-duration: 0.5s;
+          -webkit-transition-timing-function: ease-out;
+          transition-timing-function: ease-out; }
+    .button:hover:before {
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+          -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+          transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66); }
 </style>
 {% endblock css %}
 {% block body %}
 <div class="container mt-4 mb-4">
     <div class="row">
-        <div class="col-6 hero"></div>
-        <div class="col-6 bg-dark" id="form_side">
+        <div class="col-md-6 d-none d-md-block bg-dark hero"></div>
+        <div class="col-12 col-md-6 bg-dark" id="form_side">
         {% if not otp %}
             <h2 class="text-center fw-bold mt-3 text-white">Signup to</h2>
             <h2 class="text-center fw-bold text-primary">DR HANZLA FF</h2>
@@ -28,14 +101,14 @@
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <div class="mb-4 me-2" id="fname">
-                            <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">first name</label>
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">first name</label>
                             <input type="name" class="form-control field" id="firstname" id="firstName" name="firstName" required>
                             <div class="error" style="color: red; font-weight: bold;"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-4 me-2" id="lname">
-                            <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">last name</label>
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">last name</label>
                             <input type="name" id="last_name" class="form-control field" id="lastName" name="lastName" required>
                             <div class="error" style="color: red; font-weight: bold;"></div>
                         </div>
@@ -43,24 +116,24 @@
                 </div>
                 
                 <div class="mb-4 me-2" id="uname">
-                    <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">username</label>
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">username</label>
                     <input type="username" class="form-control field" id="username" id="userName" name="userName" required>
                     <div class="error" style="color: red; font-weight: bold;"></div>
                 </div>
                 <div class="mb-4 me-2" id="email">
-                    <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6" required>Email</label>
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;" required>Email</label>
                     <input type="email" class="form-control field" id="emailtype" id="email" name="email">
                     <div class="error" style="color: red; font-weight: bold;"></div>
                 </div>
                 <div class="mb-4 me-2" id="phone">
-                    <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6" required>phone</label>
+                    <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;" required>phone</label>
                     <input type="number" class="form-control field" id="phone_type" id="phone" name="phone">
                     <div class="error" style="color: red; font-weight: bold;"></div>
                 </div>
                 <div class="row">
                     <div class="col-12 col-lg-6">
                         <div class="mb-2 me-2" id="pwd">
-                            <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">password</label>
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;">password</label>
                             <input type="password" onkeyup="strength();" id="password" class="form-control field" id="password1" name="password1" required>
                             <div id="msg"></div>
                             <div class="error" style="color: red; font-weight: bold;"></div>
@@ -68,7 +141,7 @@
                     </div>
                     <div class="col-12 col-lg-6">
                         <div class="mb-2 me-2" id="cpwd">
-                            <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">confirm password</label>
+                            <label for="exampleFormControlInput1" class="form-label text-uppercase fw-bold fs-6" style="color: blueviolet;" >confirm password</label>
                             <input type="password" onkeyup="againStrength();" class="form-control field" id="again" id="password2" name="password2" required>
                             <div class="error" style="color: red; font-weight: bold;"></div>
                         </div>
@@ -80,7 +153,7 @@
                 </div>
                 <small class="text-white">Already a member? <a style="text-decoration:none; color:white;" href="/login">Sign In</a> </small>
                 <div class="text-center">
-                    <button type="submit" class="btn mb-3 text-uppercase fw-bold fs-6 button">Register</button>
+                    <button type="submit" class="btn mb-3 text-uppercase button">Register</button>
                 </div>
               </form>
               {% else %}
@@ -92,7 +165,7 @@
                     </div>
                     <form action="/account-activation" name="signupForm" onsubmit="return validateotp()" method="post">{% csrf_token %}
                         <div class="mb-4 mt-4 me-4" id="otp">
-                            <label for="exampleFormControlInput1" class="form-label text-uppercase text-warning fw-bold fs-6">OTP</label>
+                            <label for="exampleFormControlInput1" style="color: blueviolet;" class="form-label text-uppercase fw-bold fs-6">OTP</label>
                             <input type="number" class="form-control field" id="otp_typed" id="otp" name="otp">
                             <div class="error" style="color: red; font-weight: bold;"></div>
                             <input type="hidden" name="user" value="{{user}}">
@@ -133,7 +206,6 @@
         for(let item of errors)
         {
             item.innerHTML = "";
-            console.log(item);
         } 
     }
 
@@ -244,7 +316,6 @@
     function strength(){
         var pwdInput = document.getElementById('password');
         var password1 = document.forms['signupForm']['password1'].value;
-        console.log(password);
         
         if (password1.length<6){
             msg.innerHTML = "Weak"
