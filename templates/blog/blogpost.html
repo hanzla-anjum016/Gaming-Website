@@ -160,6 +160,16 @@
             <div class="row">
                 <div class="col-12 col-md-8 comment-section bg-white mt-2" id="comments" style="border-radius: 10px; ">
                     <h5 class="mt-2">Comments<span>({{comments.count}})</span></h5>
+                    {% if not user.is_authenticated %}
+                    <div class="row g-0 ms-4 border">
+                       <p class="ms-4 mt-3">Please <a href="/login" class="fw-bold" style="text-decoration: none;">Login</a> to post comments.</p>
+                    </div>
+                    {% endif %}
+                    {% if comments.count == 0 %}
+                        <div>
+                            <p class="text-dark ms-4 mt-1">Be the first to comment</p>
+                        </div>
+                    {% endif %}
                     <div class="row g-0 row-cols-auto">
                         <div class="col-md-2 col-sm-2"></div>
                         <div class="col-12 col-md-8 mt-3">

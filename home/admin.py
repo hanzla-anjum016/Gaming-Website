@@ -13,6 +13,7 @@ class TagAdmin(admin.TabularInline):
 
 admin.site.register(Playlist, PlaylistAdmin)
 admin.site.register(Contact)
+admin.site.register(HeroImage)
 admin.site.register(Userdetail)
 admin.site.register(OTP)
 admin.site.register(Videocomment)

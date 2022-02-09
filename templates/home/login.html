@@ -86,7 +86,7 @@
             {% if otp %}
             <script>
                 document.getElementById('form_side').innerHTML = `<h2 class="text-white text-center">Verify account on</h2>
-                <h2 class="text-primary text-center">DR HANZLA FF</h2>
+                <h2 class="text-center" style="color: blueviolet;>DR HANZLA FF</h2>
                 <div class="text-center">
                     <img src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
                 </div>
@@ -103,8 +103,8 @@
                 </form>`
             </script>
             {% else %}
-            <h2 class="text-white text-center">Login to</h2>
-            <h2 class="text-primary text-center">DR HANZLA FF</h2>
+            <h2 class="text-white text-center">Sign In to</h2>
+            <h2 class="text-center" style="color: blueviolet;">DR HANZLA FF</h2>
             <div class="col-12">
                 <img class="mx-auto d-block" src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
             </div>
@@ -125,7 +125,7 @@
                 </div>
                 <small class="text-white">Not a member yet? <a style="text-decoration: none; color:white;" class="small" href="/signup">Sign Up</a> </small><br>
                 {% comment %} <small><a class="small" style="text-decoration: none; color:white;" href="/password-reset">Forgot Password?</a></small> {% endcomment %}
-                <button class="button btn text-uppercase" type="submit">Login</button>
+                <button class="button btn text-uppercase" type="submit">Sign In</button>
             </form>
             {% endif %}
         </div>

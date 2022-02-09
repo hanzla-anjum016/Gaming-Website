@@ -92,7 +92,7 @@
         <div class="col-12 col-md-6 bg-dark" id="form_side">
         {% if not otp %}
             <h2 class="text-center fw-bold mt-3 text-white">Signup to</h2>
-            <h2 class="text-center fw-bold text-primary">DR HANZLA FF</h2>
+            <h2 class="text-center fw-bold" style="color: blueviolet;">DR HANZLA FF</h2>
             <div class="text-center">
                 <img src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
             </div>
@@ -153,13 +153,13 @@
                 </div>
                 <small class="text-white">Already a member? <a style="text-decoration:none; color:white;" href="/login">Sign In</a> </small>
                 <div class="text-center">
-                    <button type="submit" class="btn mb-3 text-uppercase button">Register</button>
+                    <button type="submit" class="btn mb-3 text-uppercase button">Sign Up</button>
                 </div>
               </form>
               {% else %}
               <script>
                   document.getElementById('form_side').innerHTML = `<div class="ms-3"><h2 class="mt-4 text-white text-center">Verify account on</h2>
-                    <h2 class="text-primary text-center">DR HANZLA FF</h2>
+                    <h2 class="text-center" style="color: blueviolet;>DR HANZLA FF</h2>
                     <div class="text-center">
                         <img src="{% static 'images/logo.png' %}" alt="Image" style="height: 150px;width: 150px;border-radius: 120px;">
                     </div>

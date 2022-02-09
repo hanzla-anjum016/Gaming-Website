@@ -20,10 +20,15 @@ from django.utils.html import strip_tags
 
 # Create your views here.
 def home(request):
-    return render(request, 'home/home.html')
+    images = HeroImage.objects.filter(publish=True)
+    params = {
+        'images' : images
+    }
+    return render(request, 'home/home.html', params)
 
 def playlists(request):
     all_vid = Playlist.objects.filter(publish=True)
+    print(all_vid)
     params = {
         'all_vid':all_vid,
             }

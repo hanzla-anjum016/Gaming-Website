@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 # Create your models here.
+class HeroImage(models.Model):
+    hero_thumbnail_link = models.CharField(max_length=500, default="", null=False)
+    game_card_thumbnail_link = models.CharField(max_length=500, default="", null=False)
+    blog_card_thumbnail_link = models.CharField(max_length=500, default="", null=False)
+    publish = models.BooleanField(default=False)
+
 class Playlist(models.Model):
     name = models.CharField(max_length=100, blank=True)
     slug = models.CharField(max_length=100, null=True)

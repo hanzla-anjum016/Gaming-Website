@@ -7,10 +7,9 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 def blog(request):
+
     # week_ago = datetime.date.today()-datetime.timedelta(days=7)
     # trends = Post.objects.filter(time_stamp=week_ago).order_by('read')
-    year_ago = datetime.date.today()-datetime.timedelta(days=365)
-    popular_blogs = Post.objects.filter(time_stamp__gte=year_ago).order_by('-views')
     blogs = Post.objects.filter(publish=True).order_by('-time_stamp')
     all_posts = Paginator(object_list = blogs, per_page=12)
     page = request.GET.get('page')
@@ -22,7 +21,6 @@ def blog(request):
         posts = all_posts.page(all_posts.num_pages)
     last = all_posts.num_pages    
     context = {'posts': posts,
-                'popular': popular_blogs,
                 'last':last,
     }
     return render(request, 'blog/home.html', context)
