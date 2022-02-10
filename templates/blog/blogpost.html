@@ -6,7 +6,7 @@
 <meta name="description" content="{{post.content|truncatewords:30}}">
 <meta name="keywords" content="{% for i in tags %}{{i.tag}},{% endfor %}">
 <meta property="og:title" content="{{post.title}}" />
-<meta property="og:image" content="{{post.thumbnail_link}}" />
+<meta property="og:image" content="{{post.thumbnail_link}}"/>
 {% endblock head %}
 {% block blogactive %}active{% endblock blogactive %}
 {% block title %}{{post.title}}{% endblock title %}
@@ -77,11 +77,41 @@
             <h3 class="mt-3">{{post.title}}</h3>
             <div class="fb-share-button" data-href="https://drhanzlaff.herokuapp.com/blog/{{post.slug}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdrhanzlaff.herokuapp.com%2Fblog%2F%257B%257Bpost.slug%257D%257D&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
             <div><span class="text-muted" style="font-weight: bold;">{{post.author}} | </span><span class="ms-3 text-muted" style="font-weight: bold;"> {{post.time_stamp|naturaltime}}</span></div>
+            <img src="{{post.thumbnail_link}}" alt="" style="width: 575px; height: 400px;">
             <p class="preview mt-4 px-4">{{post.content}}</p>
         </div>
         <div class="col-0 d-none d-md-block col-md-4">
-            <div class="fb-page" data-href="https://web.facebook.com/drhanzlaff_01" data-tabs="messages" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/drhanzlaff_01" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/drhanzlaff_01">DR Hanzla FF</a></blockquote></div>
             <div class="mobileHide">
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
+            <script type="text/javascript">
+                atOptions = {
+                    'key' : '41ebd011afafd04ff3d23848ebdde795',
+                    'format' : 'iframe',
+                    'height' : 250,
+                    'width' : 300,
+                    'params' : {}
+                };
+                document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://rubberbeak.com/41ebd011afafd04ff3d23848ebdde795/invoke.js"></scr' + 'ipt>');
+            </script>
             <script type="text/javascript">
                 atOptions = {
                     'key' : '41ebd011afafd04ff3d23848ebdde795',

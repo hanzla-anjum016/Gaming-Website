@@ -12,6 +12,7 @@ class Post(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True)
     author = models.CharField(max_length=50, default="Hanzla Anjum")
     publish = models.BooleanField(default=False, null=True)
+    thumbnail_link = models.CharField(max_length=500, default="")
     views = models.IntegerField(default=0)
     def __str__(self):
         return self.title[0:50]+"......."
