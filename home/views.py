@@ -364,3 +364,6 @@ def search(request):
         messages.warning(request, 'No search result found for your query.')
     params = {'allposts':all_posts, 'allplaylists':all_playlists, 'all_videos':all_videos, 'query':query}
     return render(request, 'home/search.html', params)
+
+def native(request):
+    return render (request, 'home/pops.html')
