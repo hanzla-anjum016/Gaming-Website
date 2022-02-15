@@ -1,9 +1,11 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block head %}
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
 <meta name="description" content="Watch DR HANZLA FF playing freefire get his tips and tricks to improve your gaming experience your comments are always valuable to me.">
 <meta name="keywords" content="{% for i in video.tag_set.all %}{{i.tag}},{% endfor %}">
-<meta property="og:image" content={{video.thumbnail_link}}>
+<meta property="og:image" content="{{video.thumbnail_link}}">
 <meta property="og:title"         content="{{video.Title}}" />
 {% endblock head %}
 {% block title %}{{video.Title}}{% endblock title %}

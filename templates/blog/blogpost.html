@@ -3,7 +3,9 @@
 {% load humanize %}
 {% load extras %}
 {% block head %}
-<meta name="description" content="{{post.content|truncatewords:30}}">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2033048774373966"
+     crossorigin="anonymous"></script>
+<meta name="description" content="<p class='preview'>{{post.content|truncatewords:30}}</p>">
 <meta name="keywords" content="{% for i in tags %}{{i.tag}},{% endfor %}">
 <meta property="og:title" content="{{post.title}}" />
 <meta property="og:image" content="{{post.thumbnail_link}}"/>
